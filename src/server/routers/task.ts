@@ -1,9 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { DESCRIPTION_MAX_LENGTH, TITLE_MAX_LENGTH } from "@/lib/task-limits";
 import { publicProcedure, router } from "../trpc";
-
-export const TITLE_MAX_LENGTH = 120;
-export const DESCRIPTION_MAX_LENGTH = 1000;
 
 const id = z.string().min(1, "Task id is required.");
 

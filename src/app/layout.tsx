@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { FlashProvider } from "@/components/flash";
+import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +17,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="container">{children}</main>
+        <TRPCReactProvider>
+          <FlashProvider>
+            <header className="site-header">
+              <div className="container">
+                <Link href="/" className="brand">
+                  Task Manager
+                </Link>
+              </div>
+            </header>
+            <main className="container">{children}</main>
+          </FlashProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );
