@@ -27,7 +27,10 @@ const t = initTRPC.context<Context>().create({
       message: zodError ? zodError.issues.map((issue) => issue.message).join(" ") : shape.message,
       data: {
         ...shape.data,
-        zodError: zodError ? z.flattenError(zodError) : null,
+        // e.g. { titulo: ["Title is required."] }
+        fieldErrors: zodError
+          ? (z.flattenError(zodError).fieldErrors as Record<string, string[] | undefined>)
+          : null,
       },
     };
   },
